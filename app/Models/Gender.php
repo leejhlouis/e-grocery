@@ -9,6 +9,8 @@ class Gender extends Model
 {
     use HasFactory;
     
+    public $timestamps = false;
+    
     public function account(){
         return $this->hasOne(Account::class);
     }

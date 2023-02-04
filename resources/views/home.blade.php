@@ -10,7 +10,7 @@
                         <div class="card border-0 shadow rounded-18">
                             <div class="card-body">
                                 <h5 class="card-title">Product {{ $i + 1 }}</h5>
-                                <a href="{{ url('/products/' . ($i + 1)) }}" class="btn btn-primary">Details</a>
+                                <a href="{{ url('/products/'.$i) }}" class="btn btn-primary">Details</a>
                             </div>
                         </div>
                     </div>
