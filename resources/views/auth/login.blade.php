@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('title')
-    Login | Amazing E-Grocery
+    @lang('ui.login') | Amazing E-Grocery
 @endsection
 
 @section('content')
 <div class="container col-md-6 my-5">
-    <h1 class="h2 mb-4 fw-bold">Login</h1>
+    <h1 class="h2 mb-4 fw-bold">@lang('ui.login')</h1>
     <form action={{url('/login')}} method="post">
         @csrf
         <div class="form-group mb-3">
-            <label class="fw-bold" for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <label class="fw-bold" for="email">@lang('authentication.email')</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="@lang('authentication.email')">
         </div>
         <div class="form-group mb-4">
-            <label class="fw-bold" for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+            <label class="fw-bold" for="password">@lang('authentication.password')</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="@lang('authentication.password')">
         </div>
         <div class="d-flex align-items-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a class="btn btn-link" href="/register">
-                Don't have an account? Click here to sign up
+            <button type="submit" class="btn btn-primary">@lang('ui.submit')</button>
+            <a class="btn btn-link" href={{ url(app()->getLocale().'/register ') }}>
+                @lang('ui.dont_have_account')
             </a>
         </div>
     </form>

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function showRegisterPage(){
+    public function showRegisterPage($locale = null){
         return view('auth.register');
     }
 
