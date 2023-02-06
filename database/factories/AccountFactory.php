@@ -17,7 +17,7 @@ class AccountFactory extends Factory
         $firstName = $genderId == 1 ? $this->faker->firstNameMale : $this->faker->firstNameFemale;
         $lastName = $this->faker->lastName;
         $email = strtolower($firstName[0].$lastName)."@mail.com";
-        $password = bcrypt(strtoupper($firstName[0]).$lastName.$firstName.'123456');
+        $password = bcrypt($firstName[0].$lastName.'123');
 
         return [
             'role_id' => 1,

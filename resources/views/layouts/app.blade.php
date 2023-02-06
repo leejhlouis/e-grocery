@@ -37,9 +37,14 @@
                             <a class="nav-link" href="{{ url(app()->getLocale().'/profile') }}">@lang('ui.profile')</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <a class="btn btn-primary" href="{{url('/logout')}}">@lang('ui.logout')</a>
-                    </form>
+                    @auth()
+                        <a class="btn btn-primary" href={{ url('/auth/logout') }}>@lang('ui.logout')</a>
+                    @else
+                    <div class="d-flex gap-3">
+                        <a class="btn btn-primary" href="{{ url(app()->getLocale().'/register') }}">@lang('ui.register')</a>
+                        <a class="btn btn-primary" href="{{ url(app()->getLocale().'/login') }}">@lang('ui.login')</a>
+                    </div>
+                    @endauth
                 </div>
             </div>
           </nav>

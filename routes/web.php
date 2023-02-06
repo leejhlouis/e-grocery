@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocaleController;
@@ -25,8 +24,8 @@ Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
         return view('home-guest');
     });
 
-    Route::get('/register', [AuthController::class, 'showRegisterPage']);
-    Route::get('/login', [AuthController::class, 'showLoginPage']);
+    Route::get('/register', [AccountController::class, 'showRegisterPage']);
+    Route::get('/login', [AccountController::class, 'showLoginPage']);
 
     Route::get('/products/{id}', [ItemController::class, 'details']);
     Route::get('/success', function(){
@@ -43,3 +42,8 @@ Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
 
 Route::get('/{locale}/locale/switch  ', [LocaleController::class, 'switchLocale']);
 
+Route::post('/register', [AccountController::class, 'register']);
+Route::post('/login', [AccountController::class, 'login']);
+Route::post('/profile', [AccountController::class, 'updateAccount']);
+
+Route::get('/auth/logout', [AccountController::class, 'logout']);
