@@ -20,6 +20,10 @@ class ItemController extends Controller
     public function details($locale, $id){
         $item = Item::find($id);
         
+        if (!$item){
+            abort(404);
+        }
+
         return view('details', ["item" => $item]);
     }
 }

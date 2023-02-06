@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\OrderController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,7 @@ Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
     });
 
 
-    Route::get('/cart', [CartController::class, 'showCartPage']);
+    Route::get('/cart', [OrderController::class, 'showCartPage']);
     Route::get('/profile', [AccountController::class, 'showProfile']);
     Route::get('/account-maintenance', [AccountController::class, 'showMaintenancePage']);
     Route::get('/update-role', [AccountController::class, 'showUpdateRolePage']);
@@ -48,5 +49,7 @@ Route::get('/{locale}/locale/switch  ', [LocaleController::class, 'switchLocale'
 Route::post('/register', [AccountController::class, 'register']);
 Route::post('/login', [AccountController::class, 'login']);
 Route::post('/profile', [AccountController::class, 'updateAccount']);
-
 Route::get('/auth/logout', [AccountController::class, 'logout']);
+
+Route::get('/cart/add/{id}', [OrderController::class, 'addToCart']);
+Route::get('/cart/delete/{id}', [OrderController::class, 'deleteFromCart']);

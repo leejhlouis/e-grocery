@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('item_name', 50);
             $table->string('item_desc', 500);
             $table->integer('price');
+            $table->boolean('checked_out')->default(false);
         });
     }
 
