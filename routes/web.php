@@ -26,8 +26,9 @@ Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
 
     Route::get('/register', [AccountController::class, 'showRegisterPage']);
     Route::get('/login', [AccountController::class, 'showLoginPage']);
+    
+    Route::get('/products/{id}', [ItemController::class, 'details'])->where('id', '[0-9]+');
 
-    Route::get('/products/{id}', [ItemController::class, 'details']);
     Route::get('/success', function(){
         return view('success');
     });
