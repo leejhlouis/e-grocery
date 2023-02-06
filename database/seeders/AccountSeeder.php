@@ -23,7 +23,7 @@ class AccountSeeder extends Seeder
             'first_name' => "Louis",
             'last_name' => "Gustavo",
             'email' => "admin@mail.com",
-            'display_picture_link' => "https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg",
+            'display_picture_link' => "/storage/pictures/default.jpg",
             'password' => bcrypt("louis123"),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

@@ -40,6 +40,8 @@ Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
 
 });
 
+Route::get('/', [ItemController::class, 'redirectToIndex']);
+
 Route::get('/{locale}/locale/switch  ', [LocaleController::class, 'switchLocale']);
 
 Route::post('/register', [AccountController::class, 'register']);

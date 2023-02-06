@@ -3,9 +3,9 @@
 @section('content')
 <div class="container my-5">
     <h1 class="h2 mb-4 fw-bold">@lang('ui.profile')</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <img src="{{ asset('product.jpg') }}" alt="Product Image" class="img-fluid">
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <img src="{{ asset(Auth::user()->display_picture_link) }}" alt="Product Image" class="img-fluid">
         </div>
         <div class="col-md-8">
             <form action={{url('/profile')}} method="post" enctype="multipart/form-data">

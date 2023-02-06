@@ -25,7 +25,7 @@ class AccountFactory extends Factory
             'first_name' => $firstName,
             'last_name' => $lastName,
             'email' => $email,
-            'display_picture_link' => "https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg",
+            'display_picture_link' => "/storage/pictures/default.jpg",
             'password' => $password,
         ];
     }

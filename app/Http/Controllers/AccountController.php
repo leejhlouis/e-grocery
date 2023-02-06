@@ -6,6 +6,7 @@ use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
@@ -20,9 +21,12 @@ class AccountController extends Controller
             'email' => 'required|email',
             'role' => 'required|in:1,2',
             'gender' => 'required',
-            // 'display_picture' => 'required|image',
+            'display_picture' => 'required|image',
             'password' => 'required|confirmed|min:8|regex:/^.*(?=.{1,})(?=.*[0-9]).*$/',
         ]);
+
+        $displayPicture = $request->file('display_picture');
+        $displayPictureFilename = time().'-'.$displayPicture->getClientOriginalName();
 
         $account = new Account();
         $account->first_name = $request->first_name;
@@ -30,10 +34,13 @@ class AccountController extends Controller
         $account->email = $request->email;
         $account->role_id = $request->role;
         $account->gender_id = $request->gender;
-        $account->display_picture_link = '/test';
+        $account->display_picture_link = '/storage/pictures/'.$displayPictureFilename;
+        Storage::putFileAs('public/pictures/', $displayPicture ,$displayPictureFilename);
         $account->password = bcrypt($request->password);
         $account->save();
         
+        Auth::login($account);
+
         return redirect('/'.app()->getLocale());
     }
 
@@ -66,9 +73,12 @@ class AccountController extends Controller
             'email' => 'required|email',
             'role' => 'required|in:1,2',
             'gender' => 'required',
-            // 'display_picture' => 'required|image',
+            'display_picture' => 'required|image',
             'password' => 'required|confirmed|min:8|regex:/^.*(?=.{1,})(?=.*[0-9]).*$/',
         ]);
+
+        $displayPicture = $request->file('display_picture');
+        $displayPictureFilename = time().'-'.$displayPicture->getClientOriginalName();
 
         $account = Account::find(Auth::user()->id);
         $account->first_name = $request->first_name;
@@ -76,7 +86,8 @@ class AccountController extends Controller
         $account->email = $request->email;
         $account->role_id = $request->role;
         $account->gender_id = $request->gender;
-        $account->display_picture_link = '/test';
+        $account->display_picture_link = '/storage/pictures/'.$displayPictureFilename;
+        Storage::putFileAs('public/pictures/', $displayPicture ,$displayPictureFilename);
         $account->password = bcrypt($request->password);
         $account->save();
 
