@@ -20,39 +20,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
-    Route::get('/', [ItemController::class, 'index']);
-    Route::get('/guest', function(){
-        return view('home-guest');
+
+    Route::group(['middleware' => 'guest'], function(){
+        Route::get('/', [ItemController::class, 'index'])->name('index');
+
+        Route::get('/register', [AccountController::class, 'showRegisterPage']);
+        Route::post('/register', [AccountController::class, 'register']);
+
+        Route::get('/login', [AccountController::class, 'showLoginPage']);
+        Route::post('/login', [AccountController::class, 'login']);
     });
 
-    Route::get('/register', [AccountController::class, 'showRegisterPage']);
-    Route::get('/login', [AccountController::class, 'showLoginPage']);
-    
-    Route::get('/products/{id}', [ItemController::class, 'details'])->where('id', '[0-9]+');
+    Route::group(['middleware' => 'auth'], function(){
+        Route::get('/home', [ItemController::class, 'home'])->name('home');
+        Route::get('/products/{id}', [ItemController::class, 'details']);
 
-    Route::get('/success', function(){
-        return view('success');
+        Route::get('/cart', [OrderController::class, 'showCartPage']);
+        Route::post('/cart/add/{id}', [OrderController::class, 'addToCart']);
+        Route::post('/cart/delete/{id}', [OrderController::class, 'deleteFromCart']);
+
+        Route::post('/checkout', [OrderController::class, 'checkout']);
+
+        Route::get('/profile', [AccountController::class, 'showProfile']);
+        Route::post('/profile', [AccountController::class, 'updateAccount']);
+        Route::post('/auth/logout', [AccountController::class, 'logout']);
     });
 
+    Route::group(['middleware' => 'admin'], function(){
+        Route::get('/accounts/maintenance', [AccountController::class, 'showMaintenancePage']);
+        Route::get('/accounts/update/{id}', [AccountController::class, 'showUpdateRolePage']);
+        Route::post('/accounts/update/{id}', [AccountController::class, 'updateRole']);
+        Route::post('/accounts/delete/{id}', [AccountController::class, 'delete']);
+    });
 
-    Route::get('/cart', [OrderController::class, 'showCartPage']);
-    Route::get('/profile', [AccountController::class, 'showProfile']);
-    Route::get('/accounts/maintenance', [AccountController::class, 'showMaintenancePage']);
-    Route::get('/accounts/update/{id}', [AccountController::class, 'showUpdateRolePage']);
-    Route::post('/accounts/update/{id}', [AccountController::class, 'updateRole']);
-
-    Route::post('/accounts/delete/{id}', [AccountController::class, 'delete']);
-
-    Route::post('/checkout', [OrderController::class, 'checkout']);
-
-    Route::post('/register', [AccountController::class, 'register']);
-    Route::post('/login', [AccountController::class, 'login']);
-    Route::post('/auth/logout', [AccountController::class, 'logout']);
-    Route::post('/profile', [AccountController::class, 'updateAccount']);
-    
-    Route::post('/cart/add/{id}', [OrderController::class, 'addToCart']);
-    Route::post('/cart/delete/{id}', [OrderController::class, 'deleteFromCart']);
-    
     Route::get('/locale/switch', [LocaleController::class, 'switchLocale']);
 });
 
