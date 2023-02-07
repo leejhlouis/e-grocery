@@ -42,8 +42,8 @@
             <label class="fw-bold" for="role">@lang('authentication.role')</label>
             <select class="form-control" id="role" name="role">
                 <option>@lang('ui.select_role')</option>
-                <option value="1">@lang('authentication.admin')</option>
-                <option value="2">@lang('authentication.user')</option>
+                <option value="1">@lang('authentication.user')</option>
+                <option value="2">@lang('authentication.admin')</option>
             </select>
             @error('role')
                 <p class="text-danger">
