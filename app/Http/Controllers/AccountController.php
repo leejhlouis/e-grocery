@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use Carbon\Carbon;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,6 +54,15 @@ class AccountController extends Controller
 
     public function login(Request $request){
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], true)){
+            
+            $account = Account::where('email', '=', $request->email)->first();
+            session()->put('account', [
+                'first_name' => $account->first_name,
+                'last_name' => $account->last_name,
+                'email' => $account->email,
+                'role', $account->role->role_name
+            ]);
+
             return redirect('/'.app()->getLocale());
         }
         return back()->withErrors(
@@ -64,6 +72,8 @@ class AccountController extends Controller
 
     public function logout(){
         Auth::logout();
+        session()->forget('account');
+
         return view('status.logout-success');
     }
 
