@@ -6,15 +6,16 @@
 
 @section('content')
 <div class="container mt-5">
-    <div>
-        <h1 class="h2 mb-4 fw-bold">@lang('ui.products')</h1>
-            <div class="row">
+    @auth()
+        <div>
+            <h1 class="h2 mb-4 fw-bold">@lang('ui.products')</h1>
+            <div class="d-flex flex-wrap gap-2 justify-content-between">
                 @foreach ($items as $item)
-                    <div class="col-sm-6 col-lg-3 py-3">
+                    <div class="col-sm-6 col-lg-2 d-lg-inline-flex flex-column">
                         <div class="card border-0 shadow rounded-18">
                             <div class="card-body">
                                 <img class="w-100 px-4" src="/storage/pictures/grocery.jpg" alt="">
-                                <h5 class="fw-bold card-title">{{ $item->item_name }}</h5>
+                                <p class="h5 fw-bold card-title">{{ $item->item_name }}</p>
                                 <a href="{{ url(app()->getLocale().'/products/'.$item->id) }}" class="btn btn-primary">@lang('ui.details')</a>
                             </div>
                         </div>
@@ -36,6 +37,20 @@
                     </li>
                 </ul>
             </nav>
-    </div>
+        </div>
+    @else
+        <div class="col-md-12 d-flex align-items-center" style="height: 50vh">
+            <div>
+                <h1 class="fw-bold">@lang('words.tagline')</h1>
+                <p class="fs-5">@lang('words.desc')</p>
+        
+                <div class="d-flex gap-3 pt-2">
+                    <a href={{ url(app()->getLocale().'/login') }} class="btn btn-primary">@lang('ui.login')</a>
+                    <a href={{ url(app()->getLocale().'/register') }} class="btn btn-secondary">@lang('ui.register')</a>
+                </div>
+            </div>
+        </div>
+    @endauth
+    
 </div>
 @endsection

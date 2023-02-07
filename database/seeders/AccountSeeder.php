@@ -29,6 +29,6 @@ class AccountSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         
-        Account::factory()->count(20)->create();
+        Account::factory()->count(10)->create();
     }
 }

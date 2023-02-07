@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    @lang('ui.profile') | Amazing E-Grocery
+@endsection
+
 @section('content')
 <div class="container my-5">
     <h1 class="h2 mb-4 fw-bold">@lang('ui.profile')</h1>
@@ -8,7 +12,7 @@
             <img src="{{ asset(Auth::user()->display_picture_link) }}" alt="Product Image" class="img-fluid">
         </div>
         <div class="col-md-8">
-            <form action={{url('/profile')}} method="post" enctype="multipart/form-data">
+            <form action={{url(app()->getLocale().'/profile')}} method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="d-flex gap-5 mb-3">
                     <div class="form-group w-50">
@@ -44,10 +48,10 @@
                     <select class="form-control" name="role" id="role">
                         <option>@lang('ui.select_role')</option>
                         <option value="1" @if(Auth::user()->role_id == 1) selected @endif>
-                            @lang('authentication.admin')
+                            @lang('authentication.user')
                         </option>
                         <option value="2" @if(Auth::user()->role_id == 2) selected @endif>
-                            @lang('authentication.user')
+                            @lang('authentication.admin')
                         </option>
                     </select>
                     @error('role')

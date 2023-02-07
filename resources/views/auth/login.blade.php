@@ -7,7 +7,7 @@
 @section('content')
 <div class="container col-md-6 my-5">
     <h1 class="h2 mb-4 fw-bold">@lang('ui.login')</h1>
-    <form action={{ url('/login') }} method="post">
+    <form action={{ url(app()->getLocale().'/login') }} method="post">
         @csrf
         @error("authError")
             <p class="alert alert-danger">

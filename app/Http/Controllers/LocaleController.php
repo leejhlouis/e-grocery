@@ -12,7 +12,7 @@ class LocaleController extends Controller
             app()->setLocale($locale);
 
             $previousPath = parse_url(URL::previous(), PHP_URL_PATH);
-            $newUrl = str_replace(substr($previousPath, 1, 2), $locale, $previousPath);
+            $newUrl = preg_replace('~^(/[a-z]{2})~', "/$locale", $previousPath, 1);
 
             return redirect()->to($newUrl);
         }

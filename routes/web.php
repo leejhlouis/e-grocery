@@ -37,19 +37,23 @@ Route::prefix('{locale}')->middleware(SetLocale::class)->group(function (){
 
     Route::get('/cart', [OrderController::class, 'showCartPage']);
     Route::get('/profile', [AccountController::class, 'showProfile']);
-    Route::get('/account-maintenance', [AccountController::class, 'showMaintenancePage']);
-    Route::get('/update-role', [AccountController::class, 'showUpdateRolePage']);
+    Route::get('/accounts/maintenance', [AccountController::class, 'showMaintenancePage']);
+    Route::get('/accounts/update/{id}', [AccountController::class, 'showUpdateRolePage']);
+    Route::post('/accounts/update/{id}', [AccountController::class, 'updateRole']);
 
+    Route::post('/accounts/delete/{id}', [AccountController::class, 'delete']);
+
+    Route::post('/checkout', [OrderController::class, 'checkout']);
+
+    Route::post('/register', [AccountController::class, 'register']);
+    Route::post('/login', [AccountController::class, 'login']);
+    Route::post('/auth/logout', [AccountController::class, 'logout']);
+    Route::post('/profile', [AccountController::class, 'updateAccount']);
+    
+    Route::post('/cart/add/{id}', [OrderController::class, 'addToCart']);
+    Route::post('/cart/delete/{id}', [OrderController::class, 'deleteFromCart']);
+    
+    Route::get('/locale/switch', [LocaleController::class, 'switchLocale']);
 });
 
 Route::get('/', [ItemController::class, 'redirectToIndex']);
-
-Route::get('/{locale}/locale/switch  ', [LocaleController::class, 'switchLocale']);
-
-Route::post('/register', [AccountController::class, 'register']);
-Route::post('/login', [AccountController::class, 'login']);
-Route::post('/profile', [AccountController::class, 'updateAccount']);
-Route::get('/auth/logout', [AccountController::class, 'logout']);
-
-Route::get('/cart/add/{id}', [OrderController::class, 'addToCart']);
-Route::get('/cart/delete/{id}', [OrderController::class, 'deleteFromCart']);

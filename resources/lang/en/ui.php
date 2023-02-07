@@ -25,5 +25,7 @@ return [
     'account_maintenance' => 'Account maintenance',
     'actions' => 'Actions',
     'update_role' => 'Update role',
-    'delete' => 'Delete'
+    'delete' => 'Delete',
+    'cart_empty' => 'Your cart is empty.',
+    'empty' => 'Empty',
 ];

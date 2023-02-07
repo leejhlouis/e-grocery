@@ -3,10 +3,10 @@
 @section('content')
 <div class="container col-md-12 d-flex align-items-center" style="height: 50vh">
     <div>
-        <h1 class="fw-bold">Success!</h1>
-        <p class="fs-5">We will contact you soon (1 x 24 hours).</p>
+        <h1 class="fw-bold">@lang('words.success')</h1>
+        <p class="fs-5">@lang('words.we_will_contact')</p>
         <div class="d-flex gap-3 pt-2">
-            <a href={{ url('/login') }} class="btn btn-primary">Click Here to Home</a>
+            <a href={{ url(app()->getLocale().'/') }} class="btn btn-primary">@lang('ui.home')</a>
         </div>
     </div>
 </div>

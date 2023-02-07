@@ -25,5 +25,7 @@ return [
     'account_maintenance' => 'Pengelolaan akun',
     'actions' => 'Aksi',
     'update_role' => 'Perbarui Role',
-    'delete' => 'Hapus'
+    'delete' => 'Hapus',
+    'cart_empty' => 'Keranjang Anda kosong.',
+    'empty' => 'Kosong'
 ];

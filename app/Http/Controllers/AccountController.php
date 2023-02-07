@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
-    public function showRegisterPage($locale = null){
+    public function showRegisterPage(){
         return view('auth.register');
     }
 
@@ -59,18 +60,18 @@ class AccountController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect('/'.app()->getLocale());
+        return view('status.logout-success');
     }
 
     public function showProfile(){
-        return view('profile');
+        return view('accounts.profile');
     }
 
     public function updateAccount(Request $request){
         $this->validate($request, [
             'first_name' => 'required|string|max:25|regex:/^[a-zA-Z0-9\'\-\s]+$/',
             'last_name' => 'required|string|max:25|regex:/^[a-zA-Z0-9\'\-\s]+$/',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:accounts,email',
             'role' => 'required|in:1,2',
             'gender' => 'required',
             'display_picture' => 'required|image',
@@ -91,16 +92,35 @@ class AccountController extends Controller
         $account->password = bcrypt($request->password);
         $account->save();
 
-        return back();
+        return view('status.saved');
     }
-
-    // ----------
 
     public function showMaintenancePage(){
-        return view('account-maintenance');
+        $accounts = Account::where('deleted_at', '=', null)->get();
+        return view('accounts.maintenance', ['accounts' => $accounts]);
     }
 
-    public function showUpdateRolePage(){
-        return view('update-role');
+    public function showUpdateRolePage($locale, $id){
+        $account = Account::find($id);
+        return view('accounts.update-role', ["account" => $account]);
+    }
+
+    public function updateRole(Request $request, $locale, $id){
+        $this->validate($request, [
+            'role' => 'required|in:1,2',
+        ]);
+
+        $account = Account::find($id);
+        $account->role_id = $request->role;
+        $account->save();
+
+        return redirect()->to(app()->getLocale().'/accounts/maintenance');
+    }
+
+    public function delete($locale, $id){
+        $account = Account::find($id);
+        $account->delete();
+
+        return redirect()->back();
     }
 }

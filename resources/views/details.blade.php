@@ -15,7 +15,10 @@
             <p class="fw-bold h5 mb-4">@lang('ui.price'): Rp {{ $item->price }}</p>
             <p class="fw-bold h5">@lang('ui.description')</p>
             <p>{{ $item->item_desc }}</p>
-            <a href="{{ url('/cart/add/'.$item->id) }}" class="btn btn-primary">@lang('ui.buy')</a>
+            <form action="{{ url(app()->getLocale().'/cart/add/'.$item->id) }}" method="post">
+                @csrf
+                <button class="btn btn-primary">@lang('ui.buy')</button>
+            </form>
         </div>
     </div>
 </div>

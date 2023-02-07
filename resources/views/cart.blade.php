@@ -21,28 +21,33 @@
             @php
                 $total = 0;
             @endphp
-            <tr>
                 @forelse ($cart as $item)
+                    <tr>
                         <td style="width: 120px;"><img class="w-100 pe-4" src="/storage/pictures/grocery.jpg" alt=""></td>
                         <td>{{ $item->item->item_name }}</td>
                         <td>Rp {{ $item->price }}</td>
                         <td>
-                            <a href="{{ url('cart/delete/'.$item->id) }}" class="btn btn-danger">@lang('ui.remove')</a>
+                            <form action="{{ url(app()->getLocale().'/cart/delete/'.$item->id) }}" method="post">
+                                @csrf
+                                <button class="btn btn-danger">@lang('ui.remove')</button>
+                            </form>
                         </td>
+                        @php
+                            $total += $item->price;
+                        @endphp
+                    @empty
+                        <td colspan="5" class="text-center">@lang('ui.cart_empty')</td>
                     </tr>
-                    @php
-                        $total += $item->price;
-                    @endphp
-                @empty
-                    <td colspan="5" class="text-center">Your cart is empty.
                 @endforelse
-            </td>
         </tbody>
     </table>
 
     @if ($total != 0)
         <p class="h5 fw-bold mt-5 mb-3">@lang('ui.total'): Rp {{ $total }}</p>
-        <a href="/checkout" class="btn btn-primary float-right">@lang('ui.checkout')</a>
+        <form action="{{ url(app()->getLocale().'/checkout') }}" method="post">
+        @csrf
+            <button class="btn btn-primary float-right">@lang('ui.checkout')</button>
+        </form>
     @endif
 
 </div>

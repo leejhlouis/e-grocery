@@ -27,18 +27,28 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="{{ url(app()->getLocale().'/') }}">@lang('ui.home')</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="{{ url(app()->getLocale().'/cart') }}">@lang('ui.cart')</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url(app()->getLocale().'/profile') }}">@lang('ui.profile')</a>
-                        </li>
+                        @auth()
+                            <li class="nav-item me-2">
+                                <a class="nav-link" href="{{ url(app()->getLocale().'/') }}">@lang('ui.home')</a>
+                            </li>
+                            <li class="nav-item me-2">
+                                <a class="nav-link" href="{{ url(app()->getLocale().'/cart') }}">@lang('ui.cart')</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url(app()->getLocale().'/profile') }}">@lang('ui.profile')</a>
+                            </li>
+                            @if (Auth::user()->role->role_name == "Admin")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url(app()->getLocale().'/accounts/maintenance') }}">@lang('ui.account_maintenance')</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
                     @auth()
-                        <a class="btn btn-primary" href={{ url('/auth/logout') }}>@lang('ui.logout')</a>
+                        <form action="{{ url(app()->getLocale().'/auth/logout') }}" method="post">
+                            @csrf
+                            <button class="btn btn-primary" href=>@lang('ui.logout')</button> 
+                        </form>
                     @else
                     <div class="d-flex gap-3">
                         <a class="btn btn-primary" href="{{ url(app()->getLocale().'/register') }}">@lang('ui.register')</a>
@@ -54,7 +64,7 @@
 
         <footer class="container">
             <hr>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-center">
                 <p>© Amazing E-Grocery 2023</p>
                 <div>
                     <ul class="">

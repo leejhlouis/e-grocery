@@ -7,7 +7,7 @@
 @section('content')
 <div class="container col-md-8 my-5">
     <h1 class="h2 mb-4 fw-bold">@lang('ui.register')</h1>
-    <form action={{url('/register')}} method="post" enctype="multipart/form-data">
+    <form action={{ url(app()->getLocale().'/register') }} method="post" enctype="multipart/form-data">
         @csrf
         <div class="d-flex gap-5 mb-3">
             <div class="form-group w-50">

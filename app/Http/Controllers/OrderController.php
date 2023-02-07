@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
     public function showCartPage(){
-        $cart = Order::all();
+        $cart = Order::where('account_id', '=', Auth::user()->id)->where('checked_out','=', '0')->get();
         return view('cart', ["cart" => $cart]);
     }
 
-    public function addToCart($id){
+    public function addToCart($locale, $id){
         $item = Item::find($id);
 
         $order = new Order();
@@ -25,7 +25,7 @@ class OrderController extends Controller
         return redirect()->to(app()->getLocale()."/cart");
     }
 
-    public function deleteFromCart($id){
+    public function deleteFromCart($locale, $id){
         $cart = Order::find($id);
 
         if ($cart){
@@ -33,5 +33,16 @@ class OrderController extends Controller
         }
         
         return redirect()->to(app()->getLocale()."/cart");
+    }
+
+    public function checkout(){
+        $cart = Order::where('account_id', '=', Auth::user()->id)->where('checked_out','=', '0')->get();
+
+        foreach($cart as $item){
+            $item->checked_out = true;
+            $item->save();
+        }
+
+        return view('status.success');
     }
 }

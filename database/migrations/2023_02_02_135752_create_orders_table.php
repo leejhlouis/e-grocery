@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('item_id');
             $table->integer('price');
+            $table->boolean('checked_out')->default(false);
             $table->timestamps();
             $table->foreign('account_id')->references('id')->on('accounts')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items')->onUpdate('cascade')->onDelete('cascade');
