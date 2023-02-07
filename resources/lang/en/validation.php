@@ -142,8 +142,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'regex' => 'The :attribute must not contain symbol.',
+        ],
+        'password' => [
+            'regex' => 'The :attribute must have at least one number.',
         ],
     ],
 

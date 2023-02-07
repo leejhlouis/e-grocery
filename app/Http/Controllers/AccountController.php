@@ -24,6 +24,10 @@ class AccountController extends Controller
             'gender' => 'required',
             'display_picture' => 'required|image',
             'password' => 'required|confirmed|min:8|regex:/^.*(?=.{1,})(?=.*[0-9]).*$/',
+        ], [
+            'first_name.regex' => __('validation.custom.name.regex'),
+            'last_name.regex' => __('validation.custom.name.regex'),
+            'password' => __('validation.custom.password.regex')
         ]);
 
         $displayPicture = $request->file('display_picture');
@@ -54,7 +58,7 @@ class AccountController extends Controller
             return redirect('/'.app()->getLocale());
         }
         return back()->withErrors(
-            ['authError' => "Wrong email or password. Please try again!"]
+            ['authError' => __('auth.failed')]
         );
     }
 
@@ -71,11 +75,15 @@ class AccountController extends Controller
         $this->validate($request, [
             'first_name' => 'required|string|max:25|regex:/^[a-zA-Z0-9\'\-\s]+$/',
             'last_name' => 'required|string|max:25|regex:/^[a-zA-Z0-9\'\-\s]+$/',
-            'email' => 'required|email|unique:accounts,email',
+            'email' => 'required|email',
             'role' => 'required|in:1,2',
             'gender' => 'required',
             'display_picture' => 'required|image',
             'password' => 'required|confirmed|min:8|regex:/^.*(?=.{1,})(?=.*[0-9]).*$/',
+        ], [
+            'first_name.regex' => __('validation.custom.name.regex'),
+            'last_name.regex' => __('validation.custom.name.regex'),
+            'password' => __('validation.custom.password.regex')
         ]);
 
         $displayPicture = $request->file('display_picture');

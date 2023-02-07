@@ -43,7 +43,7 @@ return [
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => ':attribute harus merupakan alamat email yang valid.',
+    'email' => 'Kolom :attribute harus merupakan alamat email yang valid.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'enum' => 'The selected :attribute is invalid.',
     'exists' => 'The selected :attribute is invalid.',
@@ -61,8 +61,8 @@ return [
         'string' => 'The :attribute must be greater than or equal to :value characters.',
         'array' => 'The :attribute must have :value items or more.',
     ],
-    'image' => ':attribute harus berupa gambar.',
-    'in' => 'The selected :attribute is invalid.',
+    'image' => 'Kolom :attribute wajib berupa gambar.',
+    'in' => 'Pilihan :attribute tidak valid.',
     'in_array' => 'The :attribute field does not exist in :other.',
     'integer' => 'The :attribute must be an integer.',
     'ip' => 'The :attribute must be a valid IP address.',
@@ -85,15 +85,15 @@ return [
     'max' => [
         'numeric' => 'The :attribute must not be greater than :max.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
-        'string' => ':attribute tidak boleh memiliki lebih dari :max karakter.',
+        'string' => 'Kolom :attribute tidak boleh memiliki lebih dari :max karakter.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
-    'mimes' => ':attribute harus berupa file bertipe: :values.',
+    'mimes' => 'Kolom :attribute harus berupa file bertipe: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => ':attribute minimal harus :min karakter.',
+        'string' => 'Kolom :attribute minimal harus :min karakter.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
@@ -107,7 +107,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => ':attribute harus diisi.',
+    'required' => 'Kolom :attribute wajib diisi.',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -123,7 +123,7 @@ return [
         'array' => 'The :attribute must contain :size items.',
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values.',
-    'string' => 'The :attribute must be a string.',
+    'string' => 'Kolom :attribute wajib berupa karakter.',
     'timezone' => 'The :attribute must be a valid timezone.',
     'unique' => 'The :attribute has already been taken.',
     'uploaded' => 'The :attribute failed to upload.',
@@ -142,8 +142,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'regex' => 'Kolom :attribute tidak boleh memiliki simbol.',
+        ],
+        'password' => [
+            'regex' => 'Kolom :attribute wajib memiliki setidaknya satu angka.',
         ],
     ],
 
